@@ -1,8 +1,6 @@
 package com.github.acnaweb.study_apix.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +25,7 @@ public class ControllerProduto {
     private ProdutoService produtoService;
 
     @PostMapping
-    public ResponseEntity<Produto> 
-                create(@RequestBody ProdutoRequestCreate dto) {
+    public ResponseEntity<Produto> create(@RequestBody ProdutoRequestCreate dto) {
 
         Produto produto = produtoService.save(dto);
 
@@ -42,17 +39,17 @@ public class ControllerProduto {
 
     @GetMapping
     public ResponseEntity<List<Produto>> findAll() {
-        List<Produto> produtos = produtoService.findAll();        
+        List<Produto> produtos = produtoService.findAll();
         return ResponseEntity.status(200).body(produtos);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Produto> findById(@PathVariable Long id) {         
+    public ResponseEntity<Produto> findById(@PathVariable Long id) {
         return produtoService.findById(id)
-            .map(p -> ResponseEntity.ok(p))
-            .orElse(ResponseEntity.notFound().build());        
+                .map(p -> ResponseEntity.ok(p))
+                .orElse(ResponseEntity.notFound().build());
     }
-    
+
     @DeleteMapping("{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         boolean result = produtoService.deleteById(id);
@@ -61,7 +58,7 @@ public class ControllerProduto {
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
-        }        
+        }
     }
 
 }
